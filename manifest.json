@@ -1,0 +1,6 @@
+{
+    "manifest_version": 2,
+    "name": "OS-WebLab",
+    "version": "1.0",
+    "description": "Serial of utilities to OS developers through a simple popup into the browser. So just chill and study your contexts in the network, when you need to validate certain bit calculation or anything, let the OS-WebLab help you!"
+}
