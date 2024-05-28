@@ -1,5 +1,6 @@
 {
     "title": "Number System Converter",
-    "tabName": "NSysConv",
-    "html": "src/popup/numSysConverter.html"
+    "tabName": "NumSys-Convert",
+    "description": "Convert from one numeric system to another",
+    "htmlPath": "src/popup/numSysConverter/numSysConverter.html"
 }

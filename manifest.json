@@ -5,7 +5,7 @@
 
     "description": "Serial of utilities to OS developers through a simple popup into the browser.",
 
-    "author": "Nicolas de Almeida Prado(Worcnaz Kyouma)",
+    "author": "Nicolas-Prado",
 
     "action": {
         "default_popup": "dist/popup.html"

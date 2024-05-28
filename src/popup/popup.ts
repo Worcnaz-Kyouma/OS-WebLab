@@ -1,6 +1,6 @@
 import { Config } from "../types/config";
 import { Data } from "../types/data";
-import { fetchJson } from "../utils";
+import { fetchJson, parseHTMLRequestToDOM } from "../utils";
 
 async function init() {
     const manifestJSON = chrome.runtime.getManifest();
@@ -16,27 +16,47 @@ function populateNav(foldersName: string[]): void {
     const foldersDataPromises = foldersDataURL.map(url => fetchJson(url)) as Promise<Data>[];
     
     Promise.all(foldersDataPromises).then(foldersData => {
-        const navListElement = document.getElementById("section-tabs");
+        const selectSectionElement = document.getElementById("section-selector");
         
-        foldersData.forEach(data => {
-            const tabElement = document.createElement('li');
+        foldersData.forEach((data, index) => {
+            const optionElement = document.createElement('option');
 
-            tabElement.textContent = data.tabName;
+            optionElement.value = index.toString();
 
-            tabElement.addEventListener('click', () => populateSection(data));
+            optionElement.textContent = data.tabName;
 
-            navListElement.appendChild(tabElement);
+            optionElement.addEventListener('click', () => populateSection(data));
+
+            selectSectionElement.appendChild(optionElement);
         })
+
+        populateSection(foldersData[0]);
     });
 }
 
 function populateGeneralFields(manifest:  chrome.runtime.Manifest) {
     const versionElement = document.getElementById("version");
-    versionElement.textContent = `${manifest.version}v`;
+    versionElement.textContent = `${manifest.version}V`;
+
+    const authorElement = document.getElementById("author");
+    authorElement.textContent = `Author: ${manifest.author}`;
 }
 
-function populateSection(data:Data): void {
+async function populateSection(data:Data): Promise<void> {
+    const sectionElementURL = chrome.runtime.getURL(data.htmlPath);
+    const sectionResponse = await fetch(sectionElementURL);
+    if(!sectionResponse.ok){
+        console.error(`HTTP error. Status: ${sectionResponse.status}.`);
+        return;
+    } 
+    
+    const sectionElement = await parseHTMLRequestToDOM(sectionResponse, 'section');
 
+    const contentWrapperElement = document.getElementById('content-wrapper');
+    const contentFooterTitleElement = document.getElementById('content-desc');
+
+    contentWrapperElement.appendChild(sectionElement);
+    contentFooterTitleElement.textContent = data.description;
 }
 
 window.onload = init;
