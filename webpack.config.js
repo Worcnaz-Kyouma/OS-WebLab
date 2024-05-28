@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 
 module.exports = {
   entry: {
@@ -28,6 +29,13 @@ module.exports = {
         { from: 'src/popup/numSysConverter', to: 'numSysConverter' },
         { from: 'src/popup/popup.html', to: 'popup.html' }
       ]
+    }),
+    new WebpackShellPluginNext({
+      onBuildStart: {
+        scripts: ['node build.js'],
+        blocking: true,
+        parallel: false
+      }
     })
   ],
   mode: 'development',
