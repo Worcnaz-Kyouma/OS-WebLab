@@ -86,6 +86,9 @@ header #author {
 }
 
 #content-wrapper {
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
     flex-grow: 1;
 }
 

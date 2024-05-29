@@ -4,7 +4,8 @@ const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 
 module.exports = {
   entry: {
-    popup: './src/popup/popup.ts'
+    popup: './src/popup/popup.ts',
+    numSysConverter: './src/popup/numSysConverter/numSysConverter.ts'
   },
   module: {
     rules: [
@@ -19,7 +20,12 @@ module.exports = {
     extensions: ['.ts', '.js']
   },
   output: {
-    filename: '[name].js',
+    filename: (pathData) => {
+      const entryPath = pathData.chunk.name !== 'popup'
+        ? '[name]/[name].js'
+        : '[name].js';
+      return entryPath;
+    },
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
@@ -27,8 +33,13 @@ module.exports = {
       patterns: [
         { from: 'src/popup/popup.css', to: 'popup.css' },
         { from: 'src/popup/style.css', to: 'style.css' },
-        { from: 'src/popup/numSysConverter', to: 'numSysConverter' },
-        { from: 'src/popup/numSysCalculator', to: 'numSysCalculator' },
+        {
+          from: 'src/popup/numSysConverter',
+          to: 'numSysConverter',
+          globOptions: {
+            ignore: ['**/*.ts', '**/*.json']
+          }
+        },
         { from: 'src/popup/popup.html', to: 'popup.html' }
       ]
     }),

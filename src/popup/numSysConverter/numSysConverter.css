@@ -1,0 +1,31 @@
+section#num-sys-converter {
+    position: relative;
+    
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+
+    
+    padding: 16px;
+}
+
+.num-sys-converter-wrapper {
+    width: 100%;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.num-sys-converter-wrapper input {
+    width: 240px;
+}
+
+.num-sys-converter-wrapper-data {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
