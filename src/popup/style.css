@@ -13,7 +13,7 @@
 
 .default-input {
     font-family: 'Inter';
-    font-size: 14px;
+    font-size: 12px;
 
     border: 1px solid #A0A0A0;
     border-radius: 4px;
@@ -21,22 +21,35 @@
     padding: 8px;
 }
 
+select.default-input {
+    cursor: pointer;
+}
+
 .default-btn {
     font-family: 'Inter';
-    font-size: 14px;
+    font-size: 12px;
 
     border: 1px solid #A0A0A0;
     border-radius: 4px;
+
+    cursor: pointer;
 
     padding: 8px 16px;
 }
 
 .default-btn-sm {
     font-family: 'Inter';
-    font-size: 8px;
+    font-size: 10px;
 
     border: 1px solid #A0A0A0;
     border-radius: 4px;
 
-    padding: 4px 8px;
+    cursor: pointer;
+
+    padding: 6px 8px;
+}
+
+.dotted-btn {
+    border-style: dotted;
+    background-color: transparent;
 }

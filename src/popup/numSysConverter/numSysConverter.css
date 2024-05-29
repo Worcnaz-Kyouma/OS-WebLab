@@ -9,7 +9,7 @@ section#num-sys-converter {
     align-items: end;
 
     
-    padding: 16px;
+    padding: 16px 24px;
 }
 
 .num-sys-converter-wrapper {
@@ -21,7 +21,7 @@ section#num-sys-converter {
 }
 
 .num-sys-converter-wrapper input {
-    width: 240px;
+    width: 280px;
 }
 
 .num-sys-converter-wrapper-data {

@@ -23,7 +23,7 @@ header #top-header {
 
     gap: 24px;
 
-    margin-bottom: 24px;
+    margin-bottom: 12px;
 }
 
 header #popup-title {
@@ -95,7 +95,7 @@ header #author {
 footer {
     flex-grow: 0;
 
-    padding: 12px 8px;
+    padding: 8px;
 
     border-top: 1px solid #A0A0A0;
 }
