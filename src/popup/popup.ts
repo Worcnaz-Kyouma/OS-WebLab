@@ -65,6 +65,12 @@ async function populateSection(folderPath: string): Promise<void> {
 
     contentWrapperElement.innerHTML = '';
     contentWrapperElement.appendChild(sectionElement);
+
+    var contentScript = document.createElement('script');
+    contentScript.src = `./${folderPath.split('/')[2]}/numSysConverter.js`;
+    contentScript.type = 'module';
+    contentWrapperElement.appendChild(contentScript);
+
     contentFooterTitleElement.textContent = tabDataJSON.description;
 }
 
