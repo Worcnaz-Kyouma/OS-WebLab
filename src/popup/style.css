@@ -1,0 +1,22 @@
+.main-title {
+    font-family: 'Inter';
+    font-weight: 300;
+    font-style: normal;
+    font-size: 24px;
+}
+
+.sm-text {
+    font-family: 'Inter';
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.default-select {
+    font-family: 'Inter';
+    font-size: 14px;
+
+    border: 1px solid #A0A0A0;
+    border-radius: 4px;
+
+    padding: 8px;
+}

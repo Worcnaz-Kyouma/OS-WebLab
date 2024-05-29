@@ -4,27 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="style.css">
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 </head>
 <body>
     <header>
         <div id="top-header">
-            <h1 id="popup-title">OS WEB-LAB</h1>
+            <h1 id="popup-title" class="main-title">OS WEB-LAB</h1>
             <div id="styled-line-wrapper">
                 <div id="styled-line"></div>
             </div>
-            <select name="section-selector" id="section-selector"></select>
+            <select name="section-selector" id="section-selector" class="default-select"></select>
         </div>
         <div id="bottom-header">
-            <span id="version"></span>
-            <span id="author"></span>
+            <span id="version" class="sm-text"></span>
+            <span id="author" class="sm-text"></span>
         </div>
     </header>
     <div id="content-wrapper">
 
     </div>
     <footer id="content-footer">
-        <h3 id="content-desc"></h3>
+        <h3 id="content-desc" class="sm-text"></h3>
     </footer>
 
     <script src="./popup.js" type="module"></script>

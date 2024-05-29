@@ -1,0 +1,6 @@
+{
+    "title": "Number System Calculator",
+    "tabName": "NumSys-Calculator",
+    "description": "Calculate basic operations to many numberic systems",
+    "folderPath": "src/popup/numSysCalculator"
+}

@@ -1,6 +1,6 @@
 import { Config } from "../types/config";
 import { Data } from "../types/data";
-import { fetchJson, parseHTMLRequestToDOM } from "../utils";
+import { fetchJson, parseHTMLRequestToDOM } from "../libs/utils";
 
 async function init() {
     const manifestJSON = chrome.runtime.getManifest();
@@ -9,28 +9,33 @@ async function init() {
 
     populateNav(configJSON.folders);
     populateGeneralFields(manifestJSON);
+
+    const selectSectionElement = document.getElementById("section-selector") as HTMLInputElement;
+    selectSectionElement.addEventListener('change', (event) => {
+        const target = event.target as HTMLSelectElement;
+        populateSection(target.value);
+    });
 }
 
 function populateNav(foldersName: string[]): void {
     const foldersDataURL = foldersName.map(name => chrome.runtime.getURL(`${name}/data.json`));
     const foldersDataPromises = foldersDataURL.map(url => fetchJson(url)) as Promise<Data>[];
     
+    const selectSectionElement = document.getElementById("section-selector") as HTMLInputElement;
     Promise.all(foldersDataPromises).then(foldersData => {
-        const selectSectionElement = document.getElementById("section-selector");
         
-        foldersData.forEach((data, index) => {
+        foldersData.forEach(data => {
             const optionElement = document.createElement('option');
 
-            optionElement.value = index.toString();
+            optionElement.value = data.folderPath;
 
             optionElement.textContent = data.tabName;
-
-            optionElement.addEventListener('click', () => populateSection(data));
 
             selectSectionElement.appendChild(optionElement);
         })
 
-        populateSection(foldersData[0]);
+        populateSection(foldersData[0].folderPath);
+        selectSectionElement.value = foldersData[0].folderPath;
     });
 }
 
@@ -42,21 +47,25 @@ function populateGeneralFields(manifest:  chrome.runtime.Manifest) {
     authorElement.textContent = `Author: ${manifest.author}`;
 }
 
-async function populateSection(data:Data): Promise<void> {
-    const sectionElementURL = chrome.runtime.getURL(data.htmlPath);
+async function populateSection(folderPath: string): Promise<void> {
+    const tabDataUrl = chrome.runtime.getURL(`${folderPath}/data.json`);
+    const tabDataJSON = await fetchJson(tabDataUrl) as Data;
+    
+    const sectionElementURL = chrome.runtime.getURL(`${folderPath}/index.html`);
     const sectionResponse = await fetch(sectionElementURL);
     if(!sectionResponse.ok){
         console.error(`HTTP error. Status: ${sectionResponse.status}.`);
         return;
     } 
-    
+
     const sectionElement = await parseHTMLRequestToDOM(sectionResponse, 'section');
 
     const contentWrapperElement = document.getElementById('content-wrapper');
     const contentFooterTitleElement = document.getElementById('content-desc');
 
+    contentWrapperElement.innerHTML = '';
     contentWrapperElement.appendChild(sectionElement);
-    contentFooterTitleElement.textContent = data.description;
+    contentFooterTitleElement.textContent = tabDataJSON.description;
 }
 
 window.onload = init;

@@ -2,5 +2,5 @@
     "title": "Number System Converter",
     "tabName": "NumSys-Convert",
     "description": "Convert from one numeric system to another",
-    "htmlPath": "src/popup/numSysConverter/numSysConverter.html"
+    "folderPath": "src/popup/numSysConverter"
 }

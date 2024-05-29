@@ -26,7 +26,9 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: 'src/popup/popup.css', to: 'popup.css' },
+        { from: 'src/popup/style.css', to: 'style.css' },
         { from: 'src/popup/numSysConverter', to: 'numSysConverter' },
+        { from: 'src/popup/numSysCalculator', to: 'numSysCalculator' },
         { from: 'src/popup/popup.html', to: 'popup.html' }
       ]
     }),
