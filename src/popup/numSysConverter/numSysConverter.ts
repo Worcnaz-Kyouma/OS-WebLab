@@ -49,12 +49,13 @@ function prepareClearBtnLogic() {
 
 //Actions
 function handleInputChange(system: numericSystems, inputValue: string, toDecimal: (value:string) => string) {
-    if(inputValue === '') {
+    
+    const filteredValue = filterInputValue(system, inputValue);
+
+    if(filteredValue === '') {
         handleInputsClear();
         return;
     }
-
-    const filteredValue = filterInputValue(system, inputValue);
 
     const decimalInput = toDecimal(filteredValue);
     
@@ -66,7 +67,9 @@ function handleInputChange(system: numericSystems, inputValue: string, toDecimal
         }
 
         const convertedValue = inputMap.fromDecimal(decimalInput);
+
         const formattedValue = formatInputValue(inputMap.system, convertedValue);
+
         inputElement.value = formattedValue;
     })
 }
@@ -115,7 +118,7 @@ function formatInputValue(system: numericSystems, inputValue: string) {
 
 function filterHexadecimalValue(inputValue: string) {
     const filteredValue = inputValue
-                                    .replace('/[^0-9A-Fa-f]/g', '');
+                                    .replace(/[^0-9A-Fa-f]/g, '');
     return filteredValue;
 }
 function formatHexadecimalValue(inputValue: string) {
@@ -136,7 +139,7 @@ function parseDecimalToHexadecimal(decimal: string) {
 
 function filterBinaryValue(inputValue: string) {
     const filteredValue = inputValue
-                                    .replace('[^01]/g', '');
+                                    .replace(/[^01]/g, '');
     return filteredValue;
 }
 function formatBinaryValue(inputValue: string) {
@@ -156,7 +159,7 @@ function parseDecimalToBinary(decimal: string) {
 
 function filterDecimalValue(inputValue: string) {
     const filteredValue = inputValue
-                                    .replace('[^0-9]/g', '');
+                                    .replace(/[^0-9]/g, '');
     return filteredValue;
 }
 function formatDecimalValue(inputValue: string) {
