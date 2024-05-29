@@ -10,6 +10,7 @@ type inputsMapType = {
 
 //Global variables
 let inputsMap: inputsMapType = [];
+let lastSystemInputed: numericSystems;
 
 //Inits
 function init() {
@@ -39,6 +40,7 @@ function prepareInputLogic() {
 
     inputsMap.forEach(inputMap => {
         inputMap.input.addEventListener('input', () => handleInputChange(inputMap.system, inputMap.input.value, inputMap.toDecimal));
+        inputMap.input.addEventListener('keydown', (event) => handleKeyDown(event, inputMap.system));
     });
 }
 
@@ -50,6 +52,8 @@ function prepareClearBtnLogic() {
 //Actions
 function handleInputChange(system: numericSystems, inputValue: string, toDecimal: (value:string) => string) {
     
+    lastSystemInputed = system;
+
     const filteredValue = filterInputValue(system, inputValue);
 
     if(filteredValue === '') {
@@ -72,6 +76,12 @@ function handleInputChange(system: numericSystems, inputValue: string, toDecimal
 
         inputElement.value = formattedValue;
     })
+}
+
+function handleKeyDown(event: KeyboardEvent, system: numericSystems) {
+    if(event.key === 'Backspace' && lastSystemInputed !== system) {
+        handleInputsClear();
+    }
 }
 
 function handleInputsClear(event: MouseEvent = undefined) {
