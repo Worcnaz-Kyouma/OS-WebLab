@@ -14,11 +14,11 @@ let lastSystemInputed: numericSystems;
 
 //Inits
 function init() {
-    prepareInputLogic();
+    prepareInputAndCopyLogic();
     prepareClearBtnLogic();
 }
 
-function prepareInputLogic() {
+function prepareInputAndCopyLogic() {
     const hexadecimalInput = document.getElementById('hexadecimal-converter') as HTMLInputElement;
     const binaryInput = document.getElementById('binary-converter') as HTMLInputElement;
     const decimalInput = document.getElementById('decimal-converter') as HTMLInputElement;
@@ -41,6 +41,9 @@ function prepareInputLogic() {
     inputsMap.forEach(inputMap => {
         inputMap.input.addEventListener('input', () => handleInputChange(inputMap.system, inputMap.input.value, inputMap.toDecimal));
         inputMap.input.addEventListener('keydown', (event) => handleKeyDown(event, inputMap.system));
+
+        const copyButton = document.getElementById(`${inputMap.system}-converter-copy`) as HTMLButtonElement;
+        copyButton.addEventListener('click', () => handleInputCopy(copyButton, inputMap.input));
     });
 }
 
@@ -82,6 +85,20 @@ function handleKeyDown(event: KeyboardEvent, system: numericSystems) {
     if(event.key === 'Backspace' && lastSystemInputed !== system) {
         handleInputsClear();
     }
+}
+
+function handleInputCopy(copyButton: HTMLButtonElement, inputElement: HTMLInputElement) {
+    inputElement.select();
+
+    document.execCommand('copy');
+
+    inputElement.setSelectionRange(0,0);
+
+    copyButton.textContent = 'Copied!';
+
+    setTimeout(() => {
+        copyButton.textContent = 'Copy';
+    }, 1000);
 }
 
 function handleInputsClear(event: MouseEvent = undefined) {
