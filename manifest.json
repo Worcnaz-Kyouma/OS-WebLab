@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "OS-WebLab",
+    "name": "OS Web-Lab",
     "version": "1.0",
 
     "description": "Serial of utilities to OS developers through a simple popup into the browser.",
